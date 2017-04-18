@@ -83,13 +83,13 @@ R for Data Science, Chapters 5.
 
 # Section 3 - Putting it Together
 
+[slides](section3-inclass.html)
+
 In this section we're touching on the last part of the loop: modeling.
 You now know a bit about visualization, and a bit about transformation and wrangling.
 
 Modeling is about capturing the essence of your data through tiny bits of math.
 Expect your modeling practice to be iterative, with transformation, visualization, and statistics as part of your the loop.
-
-[slides](section3-inclass.html)
 
 ## Optional capstone: The "Final" Project
 
