@@ -1,0 +1,102 @@
+# R Workshop SCSU
+@laneharrison  
+04/19/2017  
+
+Welcome to the workshop!
+
+R is a programming language geared towards statistical computing.
+
+What makes R exciting is its community.
+Research groups and statisticians regularly publish R packages that allow you to reproduce and extend their analyses.
+R is an excellent choice for exploratory *and* confirmatory data analysis.
+
+We have two hours together.
+While there is some flexibility in what we cover, most of our exercises will focus on a small set of learning goals.
+Specifically, upon successful completion of this section, you should be able to:
+
+1. Use R for routine analytical tasks: invoking stastical functions, loading data, producing documents / figures, installing packages, etc.
+2. Visualize any given dataset in multiple ways, through a rudimentary understanding of the "Grammar of Graphics", and `ggplot2`.
+3. Manipulate, arrange, and mutat datasets you encounter using `dplyr`.
+
+This will provide you with a foundation for using R in your analysis workflow.
+
+# Text
+
+This workshop uses material from [R for Data Science](http://r4ds.had.co.nz/) (R4D) by [Hadley Wickham](http://twitter.com/hadleywickham).
+R4D is up-to-date, good, and free.
+I recommend exploring this book well beyond this workshop.
+
+# Section 1 - Getting Started & Data Visualization
+
+[slides](section1-inclass.html)
+
+In our first section, we'll become acquainted with R, R Studio, and learn to plot data we encounter with `ggplot2`.
+
+## Discussion points
+
+- How WPI VIEW uses R + R Markdown for data visualization research.
+- How to think about tools like R and R Studio.
+- Deliberate Practice (vs. Learning in The Trenches (vs. Shortcuts in the Trenches))
+- Open Science: Challenges and Benefits
+
+## Related chapters
+
+R for Data Science, Chapters 26-27.3, 1-3
+
+## Recommended exercises + estimated times
+
+- 27.2.1 (10m)
+
+- 3.2.4 (10m)
+- 3.3.1 (15m)
+- 3.5.1 (25m)
+
+# Section 2 - Data Wrangling
+
+[slides](section2-inclass.html)
+
+In this section we'll tackle data wrangling with `dplyr`.
+In practice, data wrangling will likely take up more of your time than actual statistics, modeling, and visualization!
+
+## Discussion points
+
+- [Tidy Data](http://vita.had.co.nz/papers/tidy-data.pdf)
+- [`dplyr`](http://dplyr.tidyverse.org/), the tidy data tool
+
+## Related chapters
+
+R for Data Science, Chapters 5. 
+(If you want to really dive in, also see 9-12.)
+
+## Recommended exercises + estimated times
+
+- 5.5.2 question 1 (10m)
+- 5.6.7 (30m)
+- 5.7.1 (30m)
+
+# Section 3 - Putting it Together
+
+In this section we're touching on the last part of the loop: modeling.
+You now know a bit about visualization, and a bit about transformation and wrangling.
+
+Modeling is about capturing the essence of your data through tiny bits of math.
+Expect your modeling practice to be iterative, with transformation, visualization, and statistics as part of your the loop.
+
+[slides](section3-inclass.html)
+
+## Optional capstone: The "Final" Project
+
+Produce an original document with the following features:
+
+- Use data from your own research or your lab's research. 
+    - (You may use data online, but only as a last resort.)
+- (The Data) Describe the data in its original form. For example: How large is it? How many columns? How many rows? What types of columns? Is there missing data?
+- (EDA) Conduct an exploratory analysis of the dataset. This should be your longest section. Include text, plots, tables, statistics, and possibly statistical tests.
+- (Hypothesis) A brief section on some hypothesis you've generated about the data. Maybe you found something interesting in EDA that you would like to write up further, or you want to run statistical tests + charts to prove something. Sometimes you'll need to bring in additional data. This should be a result of your EDA.
+- (Transformation) A brief section on the transformations you're making to the data to explore your hypothesis.
+- (Results/Summary) Write up your results in a way that a newcomer can immediately grasp what was done, without any of the other sections as background. The visualizations you generate here should be well-designed and captioned such that they can exist on their own.
+
+# Links
+
+- [CRAN])(http://cran.r-project.org/)
+- [yatani.jp: HCI experiment statistics w/ R examples](http://yatani.jp/teaching/doku.php?id=hcistats:start)
