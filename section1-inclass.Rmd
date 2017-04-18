@@ -1,5 +1,5 @@
 ---
-title: "Data Wrangling & R"
+title: "Section 1: Data Visualization & R"
 author: '@laneharrison'
 date: "2/20/2017"
 output:
@@ -12,211 +12,106 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Data Wrangling
+## Data Visualization
 
-A large part of data-driven science involves data manipulation.
+Data Visualization is a key step in exploratory data analysis.
 
-Some studies find that analysts estimate 80% of their time is spent on data collection and wrangling, with 20% left to analysis and visualization.
+Visualization is also used to communicate results to others.
 
-## Data Wrangling and You
+What we need is an *effective* and *flexible* means for producing charts in R.
 
-What will this balance look like for you?
+## ggplot2 & The Grammar of Graphics
 
-Do you:
+The [Grammar of Graphics]() is a systematic way of thinking about creating charts.
 
-- Conduct the same analyses over and over with different parameters?
-- Have to occasionally grab data from outside sources and merge it with your own labs' data?
-- Work in a team?
-- Re-use your own analyses later on slightly different data?
+For our purposes, let's think about building a chart in _layers_.
 
-## Tidy data
-
-"Tidy" data is a set of principles and tools that ensure your data is compatible with a large number of statistical and visualization techniques.
-
-<img src="http://r4ds.had.co.nz/images/tidy-1.png" width="800px" />
-
-(Read more about [Tidy data](https://www.jstatsoft.org/index.php/jss/article/view/v059i10/v59i10.pdf).)
-
-## Tidy data, an example
-
-<img src="tidy-example.png" width="800px" />
-
-## Tidy data, an example in biology
-
-- [https://bioramble.wordpress.com/2015/11/27/taking-up-the-cudgels-for-tidy-data/](https://bioramble.wordpress.com/2015/11/27/taking-up-the-cudgels-for-tidy-data/)
-
-# Data Transformation
-
-## Loading Data and Libs
+## ggplot2 & The Grammar of Graphics
 
 ```{r}
-library(nycflights13) # flight data (built in)
-library(tidyverse) # set of libraries
+library(tidyverse) # this loads library(ggplot2), with other useful libraries
+ggplot()
 ```
 
-## Testing that our Data Loaded
+## First, some data...
 
 ```{r}
-flights
+mpg # note the variables
 ```
 
-## Testing that our Data Loaded, with the built in Viewer
-
-Use `View(flights)`. Try it now!
-
-The viewer will be essential for you to verify that your manipulation of data has the intended effect.
-
-## `dplyr`: a data manipulation tool
-
-- Pick observations by their values (filter()).
-- Reorder the rows (arrange()).
-- Pick variables by their names (select()).
-- Create new variables with functions of existing variables (mutate()).
-- Collapse many values down to a single summary (summarise()).
-
-(- R4DS Section 5.1.3)
-
-## `filter` flights on particular date
-```{r}
-# note: wrap assignments in parentheses to see the output, otherwise this is hidden
-(dec25 <- filter(flights, month == 12, day == 25))
-```
-
-## `filter` flights conditionally
-```{r}
-(nov_dec <- filter(flights, month %in% c(11, 12)))
-# same as filter(flights, month == 11 | month == 12)
-```
-
-## `filter` flights with delays less than two hours
-```{r}
-filter(flights, arr_delay <= 120, dep_delay <= 120)
-# same as filter(flights, !(arr_delay > 120 | dep_delay > 120))
-```
-
-## `arrange()`
-
-`filter` filters rows; `arrange` changes their order
-
-## `arrange()` by year, month, then day
-```{r}
-#arrange(flights, year, month, day)
-arrange(flights, desc(dep_time), month, day)
-```
-
-## `select()`
-
-`select` allows you to remove columns to focus on the ones you need. This can help performance and readability. 
+## Making a scatterplot
 
 ```{r}
-select(flights, year, month, day)
-# Select all columns between year and day (inclusive)
-#select(flights, year:day)
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-## `select()` helper functions
+## Let's check the documentation
 
-- starts_with("abc"): matches names that begin with “abc”.
-- ends_with("xyz"): matches names that end with “xyz”.
-- contains("ijk"): matches names that contain “ijk”.
-- matches("(.)\\1"): selects variables that match a regular expression. This one matches any variables that contain repeated characters. You’ll learn more about regular expressions in strings.
-- num_range("x", 1:3) matches x1, x2 and x3.
+- http://ggplot2.tidyverse.org/reference/geom_point.html
+- The "cheatsheet" (built in!!!)
 
-(- R4DS Section 5.4 )
+## Your turn!
 
+Beginning with the code below, try:   
 
-## `rename` to rename columns
+1. Displaying other variables 
+2. Adding color 
+3. (Advanced) Making a different chart (i.e. bar) 
+```{r eval=FALSE}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
 
-Note: the rename syntax is weird. We thought it did not work in class, when infact it's a "backwards assignment".
-The original variable is tailnum, and we are changing it to tail_num.
+## Bar
 
 ```{r}
-rename(flights, tail_num = tailnum)
+ggplot(data = mpg) + 
+  geom_bar(mapping = aes(x = class))
 ```
 
-## `mutate` to add variables
-```{r}
-# create a small dataset to see the value of mutate 
-# (it adds variables at the end)
-flights_sml <- select(flights, 
-  year:day, 
-  ends_with("delay"), 
-  distance, 
-  air_time
-)
 
-mutate(flights_sml,
-  gain = arr_delay - dep_delay,
-  speed = distance / air_time * 60
-)
+
+## Facets
+One of the **most powerful** techniques for looking at complex data.
+
+```{r eval=FALSE}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
 ```
 
-## `mutate` using columns you just created to create new columns
-```{r}
-mutate(flights_sml,
-  gain = arr_delay - dep_delay,
-  hours = air_time / 60,
-  gain_per_hour = gain / hours
-)
-```
-
-## `summarise` for grouped summaries (important!)
+## Facets
 
 ```{r}
-# to one value
-summarise(flights, delay = mean(dep_delay, na.rm = TRUE))
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
 ```
 
-## adding `group_by`
+## Facet one variable against another
+
 ```{r}
-# mean delay by year month day
-by_day <- group_by(flights, year, month, day)
-summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
-```
-
-## putting it together
-```{r}
-by_dest <- group_by(flights, dest)
-delay <- summarise(by_dest,
-  count = n(),
-  dist = mean(distance, na.rm = TRUE),
-  delay = mean(arr_delay, na.rm = TRUE)
-)
-(delay <- filter(delay, count > 20, dest != "HNL"))
-```
-
-## putting it together
-```{r}
-ggplot(data = delay, mapping = aes(x = dist, y = delay)) +
-  geom_point(aes(size = count), alpha = 1/3) +
-  geom_smooth(se = FALSE)
-```
-
-## putting it together
-```{r, echo=FALSE}
-ggplot(data = delay, mapping = aes(x = dist, y = delay)) +
-  geom_point(aes(size = count), alpha = 1/3) +
-  geom_smooth(se = FALSE)
-```
-
-## putting it together, better
-```{r}
-delays <- flights %>% 
-  group_by(dest) %>% 
-  summarise(
-    count = n(),
-    dist = mean(distance, na.rm = TRUE),
-    delay = mean(arr_delay, na.rm = TRUE)
-  ) %>% 
-  filter(count > 20, dest != "HNL")
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
 ```
 
 
+## Going beyond
 
+- Trend lines
+- Density plots
+- Interactivity (Shiny)
+- Much much more
 
-
-## Why not use built-in R functions?
-
-`dplyr` provides interoperability: the output of one function can serve as the input to another
-
+<!--
+## Extra Credit
+Re-do the examples with the dataset below
+```{r eval=FALSE}
+library('rio') #install.packages('rio')
+vehicles <- rio::import("https://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip")
+vehicles
+```
+-->
 

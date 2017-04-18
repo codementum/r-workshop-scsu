@@ -105,5 +105,5 @@ Produce an original document with the following features:
 
 # Links
 
-- [CRAN])(http://cran.r-project.org/)
+- [CRAN](http://cran.r-project.org/)
 - [yatani.jp: HCI experiment statistics w/ R examples](http://yatani.jp/teaching/doku.php?id=hcistats:start)

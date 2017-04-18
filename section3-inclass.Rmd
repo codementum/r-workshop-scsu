@@ -1,5 +1,5 @@
 ---
-title: "Data Modeling & R"
+title: "Section 3: Data Modeling & R"
 author: '@laneharrison'
 date: "04/19/2017"
 output:

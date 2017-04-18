@@ -1,13 +1,13 @@
 ---
-title: "Data Wrangling & R"
+title: "Section 2: Data Wrangling & R"
 author: '@laneharrison'
 date: "04/19/2017"
 output:
   ioslides_presentation: default
+  html_document:
+    keep_md: yes
   beamer_presentation: default
   slidy_presentation: default
-  html_document:
-    keep_md: true
 editor_options:
   chunk_output_type: console
 ---
