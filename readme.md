@@ -10,9 +10,9 @@ What makes R exciting is its community.
 Research groups and statisticians regularly publish R packages that allow you to reproduce and extend their analyses.
 R is an excellent choice for exploratory *and* confirmatory data analysis.
 
-We have two hours together.
+We have one hour together.
 While there is some flexibility in what we cover, most of our exercises will focus on a small set of learning goals.
-Specifically, upon successful completion of this section, you should be able to:
+Specifically, upon successful completion of these sections, you should be able to:
 
 1. Use R for routine analytical tasks: invoking stastical functions, loading data, producing documents / figures, installing packages, etc.
 2. Visualize any given dataset in multiple ways, through a rudimentary understanding of the "Grammar of Graphics", and `ggplot2`.
